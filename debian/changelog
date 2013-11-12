@@ -1,0 +1,5 @@
+zmqpp (3.2.0-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release
+
+ -- Łukasz 'sil2100' Zemczak <lukasz.zemczak@canonical.com>  Tue, 12 Nov 2013 17:25:07 +0100

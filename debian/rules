@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+export DPKG_GENSYMBOLS_CHECK_LEVEL = 4
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@ --fail-missing
+
+override_dh_auto_install:
+	dh_auto_install -- PREFIX="/usr" LIBDIR="debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)"
+
