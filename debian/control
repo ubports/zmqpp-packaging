@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: Łukasz 'sil2100' Zemczak <lukasz.zemczak@canonical.com>
 Build-Depends: debhelper (>= 9),
                automake,
+               libboost-test-dev,
                libzmq3-dev (>= 3.2),
 Standards-Version: 3.9.4
 Homepage: https://github.com/benjamg/zmqpp
