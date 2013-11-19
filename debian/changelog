@@ -2,6 +2,8 @@ zmqpp (3.2.0-0ubuntu2) UNRELEASED; urgency=low
 
   * debian/control:
     - Add the missing libzmq3-dev dependency to the libzmqpp-dev package
+  * debian/changelog:
+    - Use the correct GPL-3 license text for packaging
 
  -- Łukasz 'sil2100' Zemczak <lukasz.zemczak@canonical.com>  Fri, 15 Nov 2013 18:22:31 +0100
 
