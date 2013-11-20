@@ -27,6 +27,7 @@ Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},
+         libzmqpp3 (= ${binary:Version}),
          libzmq3-dev (>= 3.2),
 Description: High-level C++ bindings for zeromq3 - development files
  This C++ binding is a 'high-level' library that hides most of the c-style
