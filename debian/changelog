@@ -1,4 +1,13 @@
-zmqpp (3.2.0-0ubuntu2) UNRELEASED; urgency=low
+zmqpp (3.2.0-0ubuntu3) UNRELEASED; urgency=low
+
+  * debian/rules:
+    - Force -g to allow generating -dbg packages
+  * debian/patches/fix_1256886.diff:
+    - Fix memory alignment crash issue (LP: #1256886)
+
+ -- Łukasz 'sil2100' Zemczak <lukasz.zemczak@canonical.com>  Mon, 02 Dec 2013 14:16:41 +0100
+
+zmqpp (3.2.0-0ubuntu2) trusty; urgency=low
 
   * debian/control:
     - Add the missing libzmq3-dev dependency to the libzmqpp-dev package
