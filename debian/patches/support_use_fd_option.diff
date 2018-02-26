@@ -1,0 +1,62 @@
+Support for ZMQ_USE_FD (available in zmq master for upcoming zmq 4.2)
+
+Author: Paweł Stołowski <pawel.stolowski@canonical.com>
+
+https://github.com/zeromq/zmqpp/commit/cf572b1b6e5cbd01671b1a583fc4d1d0efc1e3cd
+
+diff --git a/src/tests/test_socket_options.cpp b/src/tests/test_socket_options.cpp
+index cb0a3c0..09df3e6 100644
+--- a/src/tests/test_socket_options.cpp
++++ b/src/tests/test_socket_options.cpp
+@@ -367,4 +367,15 @@ BOOST_AUTO_TEST_CASE( get_socket_options_tcp_only )
+ //  CHECK_NOGET(socket, curve_server);
+ }
+ #endif
++#if (ZMQ_VERSION_MAJOR > 4) || ((ZMQ_VERSION_MAJOR == 4) && (ZMQ_VERSION_MINOR >= 2))
++BOOST_AUTO_TEST_CASE( use_fd_socket_option )
++{
++	zmqpp::context context;
++	zmqpp::socket socket(context, zmqpp::socket_type::push);
++	CHECK_GET(socket, int, use_fd);
++	CHECK_SET(socket, int, use_fd);
++	CHECK_GET(socket, int, use_fd);
++}
++#endif
++
+ BOOST_AUTO_TEST_SUITE_END()
+diff --git a/src/zmqpp/socket.cpp b/src/zmqpp/socket.cpp
+index c1603ae..7b40c6a 100644
+--- a/src/zmqpp/socket.cpp
++++ b/src/zmqpp/socket.cpp
+@@ -475,6 +475,9 @@ void socket::set(socket_option const option, int const value)
+ 	case socket_option::tcp_keepalive_count:
+ 	case socket_option::tcp_keepalive_interval:
+ #endif
++#if (ZMQ_VERSION_MAJOR > 4) || ((ZMQ_VERSION_MAJOR == 4) && (ZMQ_VERSION_MINOR >= 2))
++	case socket_option::use_fd:
++#endif
+ 		if (0 != zmq_setsockopt(_socket, static_cast<int>(option), &value, sizeof(value)))
+ 		{
+ 			throw zmq_internal_exception();
+@@ -656,6 +659,9 @@ void socket::get(socket_option const option, int& value) const
+ #ifdef ZMQ_EXPERIMENTAL_LABELS
+ 	case socket_option::receive_label:
+ #endif
++#if (ZMQ_VERSION_MAJOR > 4) || ((ZMQ_VERSION_MAJOR == 4) && (ZMQ_VERSION_MINOR >= 2))
++	case socket_option::use_fd:
++#endif
+ #if (ZMQ_VERSION_MAJOR >= 4)
+ 	case socket_option::ipv6:
+ 	case socket_option::plain_server:
+diff --git a/src/zmqpp/socket_options.hpp b/src/zmqpp/socket_options.hpp
+index 8a27ce9..cf01b5a 100644
+--- a/src/zmqpp/socket_options.hpp
++++ b/src/zmqpp/socket_options.hpp
+@@ -105,6 +105,7 @@ ZMQPP_COMPARABLE_ENUM socket_option {
+ 	ipc_filter_pid            = ZMQ_IPC_FILTER_PID, /*!< Process ID filters to allow new IPC connections - set only */
+ 	ipc_filter_uid            = ZMQ_IPC_FILTER_UID, /*!< User ID filters to allow new IPC connections - set only */
+ 	router_handover           = ZMQ_ROUTER_HANDOVER, /*!< Handle duplicate client identities on ROUTER sockets - set only */
++	use_fd                    = ZMQ_USE_FD, /*!< Use a pre-allocated file descriptor instead of allocating a new one */
+  #endif
+ #endif // version > 2
+ 

@@ -1,16 +1,18 @@
 Source: zmqpp
 Section: libs
 Priority: optional
-Maintainer: Łukasz 'sil2100' Zemczak <lukasz.zemczak@canonical.com>
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Łukasz 'sil2100' Zemczak <lukasz.zemczak@canonical.com>
 Build-Depends: debhelper (>= 9),
                automake,
                libboost-test-dev,
-               libzmq3-dev (>= 3.2),
-Standards-Version: 3.9.4
-Homepage: https://github.com/benjamg/zmqpp
+               libzmq3-dev (>= 4.1.5+git20160811+2fc86bc),
+               libsodium-dev,
+Standards-Version: 3.9.7
+Homepage: https://github.com/zeromq/zmqpp
 Vcs-Bzr: lp:zmqpp/ubuntu
 
-Package: libzmqpp3
+Package: libzmqpp4
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
@@ -27,8 +29,8 @@ Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},
-         libzmqpp3 (= ${binary:Version}),
-         libzmq3-dev (>= 3.2),
+         libzmqpp4 (= ${binary:Version}),
+         libzmq3-dev,
 Description: High-level C++ bindings for zeromq3 - development files
  This C++ binding is a 'high-level' library that hides most of the c-style
  interface core 0mq provides.

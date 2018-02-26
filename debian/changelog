@@ -1,10 +1,48 @@
-zmqpp (3.2.00ubuntu31+ubports) xenial; urgency=medium
+zmqpp (4.1.2-0ubuntu2) artful; urgency=medium
 
-  * Imported to UBports
+  * debian/control:
+    - Switch libzmqpp-dev to depend on libzmq3-dev instead of libzmq5-dev as
+      the former is actually what the new zeromq provides
+  * Cleaned up the unused mkdir_before_install.diff patch
 
- -- UBports auto importer <infra@ubports.com>  Mon, 26 Feb 2018 21:23:48 +0100
+ -- Łukasz 'sil2100' Zemczak <lukasz.zemczak@ubuntu.com>  Thu, 22 Jun 2017 09:45:38 +0200
 
-zmqpp (3.2.0-0ubuntu3) UNRELEASED; urgency=low
+zmqpp (4.1.2-0ubuntu1) yakkety; urgency=medium
+
+  * New upstream release
+  * debian/copyright:
+    - Follow up on the license change to MPLv2
+  * debian/watch:
+    - Point to the new upstream location
+  * debian/patches/support_use_fd_option.diff:
+    - Support for ZMQ_USE_FD (LP: #1612240)
+  * debian/patches/fix_ftbfs_new_boost.diff:
+    - Fix FTBFS on yakkety due to boost1.61
+  * debian/control:
+    - Bump the libzmq3-dev dependency for the new required features in zeromq
+    - Add the libsodium-dev build-dep for the test libs
+    - Rename package to libzmqpp4 as the ABI changed and the soname was bumped
+    - Bump the standards version to 3.9.7
+  * debian/rules:
+    - Remove the unneeded statically linked library archive
+  * Drop debian/patches/mkdir_before_install.diff
+  * Drop debian/patches/fix_1256886.diff
+
+ -- Łukasz 'sil2100' Zemczak <lukasz.zemczak@ubuntu.com>  Thu, 11 Aug 2016 17:15:27 +0200
+
+zmqpp (3.2.0-0ubuntu4) xenial; urgency=medium
+
+  * (Build-)depend on libzmq5-dev.
+
+ -- Matthias Klose <doko@ubuntu.com>  Mon, 14 Mar 2016 19:08:23 +0100
+
+zmqpp (3.2.0-0ubuntu4~gcc5.1) wily; urgency=medium
+
+  * No-change test rebuild for g++5 ABI transition
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Wed, 15 Jul 2015 16:30:02 +0000
+
+zmqpp (3.2.0-0ubuntu3) trusty; urgency=low
 
   * debian/rules:
     - Force -g to allow generating -dbg packages

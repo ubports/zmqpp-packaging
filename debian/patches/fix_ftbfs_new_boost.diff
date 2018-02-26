@@ -1,0 +1,41 @@
+Fix the FTBFS introduced by using a newer boost that no longer supports the
+deprecated BOOST_CHECKPOINT macro. BOOST_TEST_CHECKPOINT needs to be used
+instead + some small other compile fixes.
+
+Author: Łukasz 'sil2100' Zemczak <lukasz.zemczak@ubuntu.com>
+
+Index: zmqpp-4.1.2/src/tests/test_socket_options.cpp
+===================================================================
+--- zmqpp-4.1.2.orig/src/tests/test_socket_options.cpp
++++ zmqpp-4.1.2/src/tests/test_socket_options.cpp
+@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_SUITE( socket_options )
+ template<typename CheckType, typename WantedType>
+ void try_set(zmqpp::socket& socket, zmqpp::socket_option const& option, CheckType const& value, std::string const& option_name, std::string const& value_type)
+ {
+-	BOOST_CHECKPOINT("setting option " << option_name << " against set type '" << value_type << "'");
++	BOOST_TEST_CHECKPOINT("setting option " << option_name << " against set type '" << value_type << "'");
+ 	try
+ 	{
+ 		socket.set(option, value);
+@@ -51,7 +51,7 @@ void try_set(zmqpp::socket& socket, zmqp
+ template<typename CheckType, typename WantedType>
+ void try_get(zmqpp::socket const& socket, zmqpp::socket_option const& option, std::string const& option_name, std::string const& value_type)
+ {
+-	BOOST_CHECKPOINT("getting option " << option_name << " against set type '" << value_type << "'");
++	BOOST_TEST_CHECKPOINT("getting option " << option_name << " against set type '" << value_type << "'");
+ 	try
+ 	{
+ 		CheckType value;
+Index: zmqpp-4.1.2/src/tests/test_socket.cpp
+===================================================================
+--- zmqpp-4.1.2.orig/src/tests/test_socket.cpp
++++ zmqpp-4.1.2/src/tests/test_socket.cpp
+@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_CASE( socket_creation )
+ BOOST_AUTO_TEST_CASE( socket_creation_bad_type )
+ {
+ 	zmqpp::context context;
+-	BOOST_CHECK_THROW(zmqpp::socket socket(context, static_cast<zmqpp::socket_type>(-1)), zmqpp::zmq_internal_exception)
++	BOOST_CHECK_THROW(zmqpp::socket socket(context, static_cast<zmqpp::socket_type>(-1)), zmqpp::zmq_internal_exception);
+ }
+ 
+ BOOST_AUTO_TEST_CASE( valid_socket )
