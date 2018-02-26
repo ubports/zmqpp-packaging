@@ -1,3 +1,9 @@
+zmqpp (3.2.00ubuntu31+ubports) xenial; urgency=medium
+
+  * Imported to UBports
+
+ -- UBports auto importer <infra@ubports.com>  Mon, 26 Feb 2018 21:23:48 +0100
+
 zmqpp (3.2.0-0ubuntu3) UNRELEASED; urgency=low
 
   * debian/rules:
